@@ -9,11 +9,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
-
+import androidx.lifecycle.ViewModelProvider
+import com.udacity.databinding.ActivityMainBinding
+import com.udacity.databinding.ContentMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,16 +24,26 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
 
+    private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var model: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+
+        model = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
+        mainBinding.model = model
+
+        model.handleDownloadClick(this) {
+            val url = model.getDownloadUrl()
+            Toast.makeText(this, url, Toast.LENGTH_LONG).show()
+        }
+
+        setContentView(mainBinding.root)
+        setSupportActionBar(mainBinding.toolbar)
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-
-        custom_button.setOnClickListener {
-            download()
-        }
     }
 
     private val receiver = object : BroadcastReceiver() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ND940C3-Project</string>
+    <string name="app_name">Dr. Bolle\'s Downloader</string>
     <string name="app_description">Download files from Internet</string>
     <string name="action_settings">Settings</string>
 
@@ -8,7 +8,12 @@
     <string name="notification_description">The Project 3 repository is downloaded</string>
     <string name="notification_button">See changes</string>
 
+    <string name="glide_option">Glide - Image Loading Library by BumpTech</string>
+    <string name="udacity_option">Load App - Current Repository by Udacity</string>
+    <string name="retrofit2_option">Retrofit - Type-safe HTTP Client for Android and Java by Square, Inc</string>
+
     <string name="button_name">Click me</string>
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="button_download">Download</string>
 </resources>
