@@ -1,10 +1,11 @@
-package com.udacity
+package com.udacity.ui
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
+import com.udacity.ui.ButtonState
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(

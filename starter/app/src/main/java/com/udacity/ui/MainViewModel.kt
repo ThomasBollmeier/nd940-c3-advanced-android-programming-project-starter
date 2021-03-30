@@ -29,16 +29,17 @@ class MainViewModel : ViewModel() {
         _downloadClicked.value = true
     }
 
-    fun handleDownloadClick(owner: LifecycleOwner, handler: () -> Unit) {
+    fun handleDownloadClick(owner: LifecycleOwner, handler: (url: String) -> Unit) {
         _downloadClicked.observe(owner, Observer {
             it?.let { clicked -> if (clicked) {
-                handler()
+                val url = getDownloadUrl()
+                handler(url)
                 _downloadClicked.value = false
             } }
         })
     }
 
-    fun getDownloadUrl() : String {
+    private fun getDownloadUrl() : String {
         return if (selectedDownloadButton.value != null) {
             downloadSourceMap[selectedDownloadButton.value!!] ?: ""
         } else ""
