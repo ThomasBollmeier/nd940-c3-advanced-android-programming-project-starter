@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var downloadID: Long = 0
     private lateinit var downloader: Downloader
 
-    private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
 
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(mainBinding.root)
         setSupportActionBar(mainBinding.toolbar)
-        
+
         createNotificationChannel()
 
     }
@@ -93,11 +92,21 @@ class MainActivity : AppCompatActivity() {
 
         val notificationId = 1
 
+        val detailIntent = Intent(this, DetailActivity::class.java)
+        val pendingDetailIntent =
+            PendingIntent.getActivity(this, 0, detailIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(getString(R.string.notification_title))
             .setContentText(getString(R.string.notification_description))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .addAction(
+                R.drawable.ic_launcher_foreground,
+                getString(R.string.notification_button),
+                pendingDetailIntent
+            )
+            .setAutoCancel(true)
             .build()
 
         with(NotificationManagerCompat.from(this)) {
