@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         model = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
         mainBinding.model = model
 
-        downloader = Downloader(this) { id ->
+        downloader = Downloader(this) { id, uri, status ->
             if (id == downloadID) {
-                sendNotification()
+                sendNotification(uri, status)
             }
         }
 
@@ -88,11 +88,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun sendNotification() {
+    private fun sendNotification(uri: String, status: Int) {
 
         val notificationId = 1
 
-        val detailIntent = Intent(this, DetailActivity::class.java)
+        val detailIntent = Intent(this, DetailActivity::class.java).apply {
+
+            val resId = model.getDownloadSourceLabelResId(uri)
+            val label = if (resId != null) getString(resId) else ""
+
+            putExtra(DETAIL_EXTRA_DOWNLOAD_SRC_LABEL, label)
+            putExtra(DETAIL_EXTRA_STATUS, status)
+        }
+
         val pendingDetailIntent =
             PendingIntent.getActivity(this, 0, detailIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 

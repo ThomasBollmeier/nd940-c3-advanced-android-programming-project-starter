@@ -16,9 +16,12 @@ class MainViewModelFactory() : ViewModelProvider.Factory {
 class MainViewModel : ViewModel() {
 
     private val downloadSourceMap = mapOf(
-        R.id.rbGlide to "https://github.com/bumptech/glide",
-        R.id.rbUdacity to "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter",
-        R.id.rbRetrofit to "https://github.com/square/retrofit"
+        R.id.rbGlide to Pair("https://github.com/bumptech/glide", R.string.glide_option),
+        R.id.rbUdacity to Pair(
+            "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter",
+            R.string.udacity_option
+        ),
+        R.id.rbRetrofit to Pair("https://github.com/square/retrofit", R.string.retrofit2_option)
     )
 
     val selectedDownloadButton = MutableLiveData<Int>()
@@ -31,17 +34,28 @@ class MainViewModel : ViewModel() {
 
     fun handleDownloadClick(owner: LifecycleOwner, handler: (url: String) -> Unit) {
         _downloadClicked.observe(owner, Observer {
-            it?.let { clicked -> if (clicked) {
-                val url = getDownloadUrl()
-                handler(url)
-                _downloadClicked.value = false
-            } }
+            it?.let { clicked ->
+                if (clicked) {
+                    val url = getDownloadUrl()
+                    handler(url)
+                    _downloadClicked.value = false
+                }
+            }
         })
     }
 
-    private fun getDownloadUrl() : String {
+    fun getDownloadSourceLabelResId(url: String): Int? {
+        for ((_url, resId) in downloadSourceMap.values) {
+            if (_url == url) {
+                return resId
+            }
+        }
+        return null
+    }
+
+    private fun getDownloadUrl(): String {
         return if (selectedDownloadButton.value != null) {
-            downloadSourceMap[selectedDownloadButton.value!!] ?: ""
+            downloadSourceMap[selectedDownloadButton.value!!]?.first ?: ""
         } else ""
     }
 
