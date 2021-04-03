@@ -19,4 +19,11 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="button_download">Download</string>
     <string name="no_selection_message">Please select the file to download</string>
+
+    <string name="status_failed">Failed</string>
+    <string name="status_paused">Paused</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_running">Running</string>
+    <string name="status_successful">Successful</string>
+
 </resources>
