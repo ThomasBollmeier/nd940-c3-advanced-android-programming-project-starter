@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.udacity.MainViewModel" />
+            type="com.udacity.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

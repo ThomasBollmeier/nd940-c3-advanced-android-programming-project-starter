@@ -2,17 +2,13 @@ package com.udacity.ui
 
 import android.app.DownloadManager
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.udacity.MainViewModel
+import androidx.lifecycle.*
 import com.udacity.R
 
 class DetailViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
@@ -29,6 +25,23 @@ class DetailViewModel(private val context: Context) : ViewModel() {
     private var _statusDescription = MutableLiveData<String>()
     val statusDescription: LiveData<String>
         get() = _statusDescription
+
+    private var _okClicked = MutableLiveData<Boolean>()
+
+    fun onOkClicked() {
+        _okClicked.value = true
+    }
+
+    fun handleOkClick(owner: LifecycleOwner, handler: () -> Unit) {
+        _okClicked.observe(owner, Observer {
+            it?.let { clicked ->
+                if (clicked) {
+                    handler()
+                    _okClicked.value = false
+                }
+            }
+        })
+    }
 
     fun setLabel(label: String) {
         _label.value = label

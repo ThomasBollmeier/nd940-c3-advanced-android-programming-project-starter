@@ -5,9 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -15,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
-import com.udacity.MainViewModel
-import com.udacity.MainViewModelFactory
 import com.udacity.R
 import com.udacity.core.Downloader
 import com.udacity.databinding.ActivityMainBinding

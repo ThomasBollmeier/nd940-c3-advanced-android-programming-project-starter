@@ -1,7 +1,7 @@
-package com.udacity
+package com.udacity.ui
 
-import android.app.Application
 import androidx.lifecycle.*
+import com.udacity.R
 
 class MainViewModelFactory() : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

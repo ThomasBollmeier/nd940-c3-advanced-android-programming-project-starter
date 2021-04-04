@@ -25,5 +25,8 @@
     <string name="status_pending">Pending</string>
     <string name="status_running">Running</string>
     <string name="status_successful">Successful</string>
+    <string name="file_name_label">File Name</string>
+    <string name="status_label">Status</string>
+    <string name="ok_label">OK</string>
 
 </resources>
